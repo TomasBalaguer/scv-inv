@@ -35,20 +35,27 @@ class UserController {
         var investments = [];
         movements.forEach(element => {
             var id = element.bono._id
-            if(!investments[id])
-            {
-                investments[id] = {qty:0}
-            }
-            if(element.action == '+')
-            {
-                investments[id].qty = investments[id].qty + element.qty
+            if(!investments.find(x => x._id === id)){
+                investments.push({_id: id, name: element.bono.name, qty: element.qty, price: element.bono.price[Object.keys(element.bono.price).pop()], lastUpdate: Object.keys(element.bono.price).pop()})
+            }else if(element.action == '+'){
+                investments.find(x => x._id === id).qty += element.qty
             }else if(element.action == '-'){
-                investments[id].qty = investments[id].qty - element.qty
+                investments.find(x => x._id === id).qty -= element.qty
             }
+            // if(!investments[id])
+            // {
+            //     investments[id] = {qty:0}
+            // }
+            // if(element.action == '+')
+            // {
+            //     investments[id].qty = investments[id].qty + element.qty
+            // }else if(element.action == '-'){
+            //     investments[id].qty = investments[id].qty - element.qty
+            // }
 
-            investments[id].name = element.bono.name
-            investments[id].lastUpdate = Object.keys(element.bono.price).pop()
-            investments[id].price = element.bono.price[Object.keys(element.bono.price).pop()]
+            // investments[id].name = element.bono.name
+            // investments[id].lastUpdate = Object.keys(element.bono.price).pop()
+            // investments[id].price = element.bono.price[Object.keys(element.bono.price).pop()]
 
         });
         return Promise.resolve(investments)

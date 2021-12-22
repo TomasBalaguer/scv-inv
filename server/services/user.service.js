@@ -27,32 +27,24 @@ class BonoRepository {
 
     async updateUser(user) {
         var userInvestments = user.investments;
-        console.log(user.investments)
         let data = {};
-            User.findOne(user._id).then(doc=>{
-                doc.investments = user.investments
-                doc.save()
-            }).catch(err => {
-                console.log('Oh! Dark')
-              });
-            }
-    
-        //     data = await User.findByIdAndUpdate(user._id , 
-        //         {
-        //            investments: user.investments
-        //         }, function (err, docs) {
-        //         if (err){
-        //             console.log(err)
-        //         }
-        //         else{
-        //             console.log("Updated Docs : ", docs);
-        //         }
-        //     })
-        // } catch(err) {
-        //     logger.error('Error::' + err);
-        // }
-        // return data;
-    
+        try {
+            data = await User.findByIdAndUpdate(user._id , 
+                {
+                   investments: user.investments
+                }, function (err, docs) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    console.log("Updated Docs : ", docs);
+                }
+            })
+        } catch(err) {
+            logger.error('Error::' + err);
+        }
+        return data;
+    }
 
 }
 
