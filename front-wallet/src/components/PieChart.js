@@ -45,6 +45,9 @@ const PieChartBox = ({ data, valorTotal }) => {
                     {e.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                   </Text>
                 </View>
+                <View>
+                  <Text style={styles.refText}>{(e.amount * 100 / valorTotal).toFixed(2)}%</Text>
+                </View>
               </View>
             );
           })}
