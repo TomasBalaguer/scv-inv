@@ -46,6 +46,7 @@ class UserController {
         investments.find((x) => x._id === id).qty -= element.qty;
       }
     });
+     investments = investments.filter(function(el) { return el.qty != 0; }); 
     return investments;
   }
 
