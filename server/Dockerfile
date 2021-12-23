@@ -1,6 +1,6 @@
 
 # from base image node
-FROM node:8.11-slim
+FROM node:17.3-buster-slim
 
 RUN mkdir -p /usr/src/app
 
@@ -16,7 +16,7 @@ RUN npm install
 COPY ./ .
 
 #expose the port
-EXPOSE 3081
+EXPOSE 3000
 
 # command to run when intantiate an image
 CMD ["npm","run", "dev"]

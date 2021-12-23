@@ -1,14 +1,14 @@
 version: '3.7'
 services:
-  # nodejs-api:
-  #   build:
-  #     context: ./
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3081:3081"
-  #   container_name: nodejs-api
-  #   links:
-  #     - mongo-db
+  nodejs-api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "3081:3000"
+    container_name: nodejs-api
+    links:
+      - mongo-db
   mongo-db:
     image: mongo
     ports:
@@ -16,3 +16,12 @@ services:
     container_name: mongo-db
     volumes:
       - ./db/:/data/db
+
+  mongo_seed:
+    image: mongo
+    links:
+      - mongo-db
+    volumes:
+      - ./mongo-seed:/mongo-seed
+    command:
+      /mongo-seed/import.sh    

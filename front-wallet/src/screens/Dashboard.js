@@ -37,7 +37,7 @@ const Dashboard = ({navigation}) => {
 
   const getUser = async () => {
     const { data: data, ok: response, status } = await dataApi.getUser();
-    console.log(data);
+    console.log(response);
     pieData(data)
     setUser(data);
   };

@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(require('./routes/index.routes'))
 
 
-app.listen(3000, '192.168.0.17', () => {
+app.listen(3000, () => {
     console.log(`Server listening on the port  ${port}`);
 })
 
