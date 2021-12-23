@@ -14,8 +14,13 @@ const getBono = (id) => {
     return client.get(`${endpoint}/bonos/${id}`);
   };
 
+  const saveMovement = (values) => {
+    return client.post(`${endpoint}/movements`, values);
+  };
+
 export default {
   getUser,
   getBonos,
-  getBono
+  getBono,
+  saveMovement
 };

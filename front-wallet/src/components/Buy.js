@@ -9,13 +9,11 @@ import {
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import { Colors } from "./styles";
 
-const Buy = ({ item, type, bono }) => {
+const Buy = ({ item, type, bono, action, price }) => {
   const [total, setTotal] = useState(0);
   const [qty, setQty] = useState();
-  const [price, setPrice] = useState(bono ? bono.price[Object.keys(bono.price).pop()] : item.price)
-  
 const getTotalPrice = (e) => {
-    console.log(price)
+    console.log(item)
     setQty(e)
     setTotal(e * price);
   };
@@ -44,7 +42,7 @@ const getTotalPrice = (e) => {
         <Text style={styles.totalPrice}>${total}</Text>
       </View>
       <View style={{ width: "50%" }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{action(qty, price, total)}}>
           <View
             style={[
               styles.button,

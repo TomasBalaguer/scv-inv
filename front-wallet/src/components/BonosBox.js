@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, FlatList } from "react-native";
 import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import { Colors } from "./styles";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native";
 
 const BonosBox = ({ bonos, investments }) => {
   const navigation = useNavigation();
@@ -12,6 +13,7 @@ const BonosBox = ({ bonos, investments }) => {
       return (
         <TouchableOpacity
           onPress={() => navigation.navigate("Trade", { item: item })}
+          key={item._id}
         >
           <View style={styles.balanceBox}>
             <View>
@@ -19,7 +21,7 @@ const BonosBox = ({ bonos, investments }) => {
             </View>
             <View>
               <Text style={styles.balance}>
-                ${item.price[Object.keys(item.price).pop()]}
+                ${item.price[Object.keys(item.price).pop()].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </Text>
               <Text style={styles.date}>
                 Ultima actualizacion: {Object.keys(item.price).pop()}
@@ -37,11 +39,13 @@ const BonosBox = ({ bonos, investments }) => {
       </View>
 
       <View>
+        <SafeAreaView>
         <FlatList
           data={bonos}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
+        </SafeAreaView>
       </View>
     </View>
   );

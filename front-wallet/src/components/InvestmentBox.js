@@ -3,18 +3,19 @@ import { View, StyleSheet, Text, FlatList } from "react-native";
 import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import { Colors } from "./styles";
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const InvestmentBox = ({ balance, investments }) => {
   const navigation = useNavigation()
   const renderItem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={()=>navigation.navigate('Trade', {item: item})}>
+      <TouchableOpacity onPress={()=>navigation.navigate('Trade', {item: item})} key={item._id}>
         <View style={styles.balanceBox}>
           <View>
             <Text style={styles.balanceTitle}>{item.name}</Text>
           </View>
           <View>
-            <Text style={styles.balance}>${item.qty * item.price}</Text>
+            <Text style={styles.balance}>${(item.qty * item.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text>
             <Text style={styles.qty}>{item.qty} un.</Text>
           </View>
         </View>
@@ -31,7 +32,7 @@ const InvestmentBox = ({ balance, investments }) => {
           <Text style={styles.balanceTitle}>Caja</Text>
         </View>
         <View>
-          <Text style={styles.balance}>${balance}</Text>
+          <Text style={styles.balance}>${balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text>
         </View>
       </View>
 
@@ -40,11 +41,13 @@ const InvestmentBox = ({ balance, investments }) => {
       </View>
 
       <View>
+        <SafeAreaView>
         <FlatList
           data={investments}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
+        </SafeAreaView>
       </View>
     </View>
   );

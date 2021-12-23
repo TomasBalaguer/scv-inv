@@ -9,6 +9,7 @@ import {
 import AppScreen from "../components/AppScreen";
 import BonosBox from "../components/BonosBox";
 import InvestmentBox from "../components/InvestmentBox";
+import PieChart from "../components/PieChart";
 import { Colors } from "../components/styles";
 import dataApi from "./../services/data";
 
@@ -18,7 +19,7 @@ const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
 
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
   const [user, setUser] = useState();
   const [bonos, setBonos] = useState()
 
@@ -34,7 +35,7 @@ const Dashboard = () => {
 
   const getUser = async () => {
     const { data: data, ok: response, status } = await dataApi.getUser();
-    console.log(data.balance);
+    console.log(data);
     setUser(data);
   };
 
@@ -45,9 +46,13 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    getUser();
-    getBonos();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getUser();
+      getBonos();
+    });
+    return unsubscribe;
+ 
+  }, [navigation]);
 
   return (
     <AppScreen>
@@ -75,10 +80,14 @@ const Dashboard = () => {
               investments={user.investments}
               bonos={bonos}
             />
-          )}       
+          )}  
 
 
-          <Text>Es un Dashboard</Text>
+          <PieChart 
+          user={user}
+          />   
+
+
         </View>
       </ScrollView>
     </AppScreen>
