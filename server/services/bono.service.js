@@ -1,6 +1,7 @@
 const { connect, disconnect } = require('../config/db.config');
 const { Bono } = require('../model/bonos.model');
 const logger = require('../logger/api.logger');
+const { errorResponse } = require('../helpers/helper');
 
 class BonoRepository {
 
@@ -41,26 +42,29 @@ class BonoRepository {
     }
 
     async updatePrice(req) {
-        
+        var bono = await this.getBono(req.id);
+        var date = new Date().toLocaleDateString();
+        var price = bono.price;
+        price[date] = req.price;
+        console.log(price)
         let data = {};
         try {
-            var date = '"price.'+ new Date().toLocaleDateString()+'"';
             console.log(date)
             data = await Bono.findByIdAndUpdate(req.id , 
                 {
-                   
+                   price: price
                 }, function (err, docs) {
                 if (err){
                     console.log(err)
                 }
                 else{
-                    console.log("Updated Docs : ", docs);
+                    console.log('Actualizado')
                 }
             })
         } catch(err) {
             logger.error('Error::' + err);
         }
-        return data;
+        return errorResponse(200, bono.name+ " actualizado exitosamente", data);
     }
 
 }
