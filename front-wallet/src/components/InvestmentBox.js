@@ -2,11 +2,13 @@ import React from "react";
 import { View, StyleSheet, Text, FlatList } from "react-native";
 import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import { Colors } from "./styles";
+import { useNavigation } from '@react-navigation/native';
 
 const InvestmentBox = ({ balance, investments }) => {
+  const navigation = useNavigation()
   const renderItem = ({ item }) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('Trade', {item: item})}>
         <View style={styles.balanceBox}>
           <View>
             <Text style={styles.balanceTitle}>{item.name}</Text>
@@ -50,7 +52,7 @@ const InvestmentBox = ({ balance, investments }) => {
 
 const styles = StyleSheet.create({
   boxContainer: {
-    width: "95  %",
+    width: "95%",
     backgroundColor: Colors.white,
     paddingHorizontal: 20,
     paddingBottom: 40,

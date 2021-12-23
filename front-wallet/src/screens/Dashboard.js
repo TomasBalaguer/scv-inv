@@ -70,7 +70,7 @@ const Dashboard = () => {
           )}  
           </View>
      
-          {bonos && (
+          {bonos && user && (
             <BonosBox
               investments={user.investments}
               bonos={bonos}

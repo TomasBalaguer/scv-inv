@@ -9,6 +9,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { Colors } from "./src/components/styles";
+import Trade from "./src/screens/Trade";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,7 @@ export default function App() {
         <Stack.Navigator
         screenOptions={{headerShown: false}}>
           <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen name="Trade" component={Trade} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

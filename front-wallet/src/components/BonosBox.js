@@ -2,30 +2,37 @@ import React from "react";
 import { View, StyleSheet, Text, FlatList } from "react-native";
 import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import { Colors } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 const BonosBox = ({ bonos, investments }) => {
+  const navigation = useNavigation();
+
   const renderItem = ({ item }) => {
-    if (!investments.find((x) => x._id === item._id))
-    {
+    if (!investments.find((x) => x._id === item._id)) {
       return (
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Trade", { item: item })}
+        >
           <View style={styles.balanceBox}>
             <View>
               <Text style={styles.balanceTitle}>{item.name}</Text>
             </View>
             <View>
-              <Text style={styles.balance}>${item.price[Object.keys(item.price).pop()]}</Text>
-              <Text style={styles.date}>Ultima actualizacion: {Object.keys(item.price).pop()}</Text>
+              <Text style={styles.balance}>
+                ${item.price[Object.keys(item.price).pop()]}
+              </Text>
+              <Text style={styles.date}>
+                Ultima actualizacion: {Object.keys(item.price).pop()}
+              </Text>
             </View>
           </View>
-          </TouchableOpacity>
+        </TouchableOpacity>
       );
     }
-
   };
   return (
     <View style={styles.boxContainer}>
-      <View style={[styles.titleBox, {marginTop: 30}]}>
+      <View style={[styles.titleBox, { marginTop: 30 }]}>
         <Text style={styles.titleText}>BONOS</Text>
       </View>
 
@@ -47,10 +54,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 40,
     shadowColor: Colors.white,
-    shadowOffset: {width: 2, height: 2},
+    shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.7,
     shadowRadius: 2,
-    elevation: 2
+    elevation: 2,
   },
   titleBox: {
     height: 40,
@@ -65,7 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomWidth: 1,
     borderBottomColor: Colors.grey,
-    paddingVertical: 15
+    paddingVertical: 15,
   },
   balanceTitle: {
     color: Colors.lightblue,
@@ -74,14 +81,14 @@ const styles = StyleSheet.create({
   },
   balance: {
     fontSize: 24,
-    textAlign: 'right'
+    textAlign: "right",
   },
   date: {
-    textAlign: 'right',
+    textAlign: "right",
     fontSize: 12,
     color: Colors.grey,
-    marginTop: 10
-  }
+    marginTop: 10,
+  },
 });
 
 export default BonosBox;

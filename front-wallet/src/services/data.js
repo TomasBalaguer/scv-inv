@@ -10,7 +10,12 @@ const getBonos = () => {
   return client.get(`${endpoint}/bonos`);
 };
 
+const getBono = (id) => {
+    return client.get(`${endpoint}/bonos/${id}`);
+  };
+
 export default {
   getUser,
   getBonos,
+  getBono
 };
