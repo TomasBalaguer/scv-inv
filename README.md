@@ -6,11 +6,11 @@
 
 ## Precondiciones
 
-## Levantar servidos y base de datos
+## Levantar servidor y base de datos
 `cd PATH-TO-PROJECT/server`
 
 ### Correr docker
-`docker-compose up --build`
+`docker-compose up --build -d`
 
 ### Entrypoint
 
