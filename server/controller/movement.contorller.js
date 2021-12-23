@@ -14,6 +14,7 @@ class BonoController {
     }
 
     async createMovement(movement) {
+        console.log(movement)
         logger.info('Controller: createMovement', movement);
         return await movementService.createMovement(movement);
     }
