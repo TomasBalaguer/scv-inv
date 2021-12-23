@@ -3,43 +3,35 @@ import { View, StyleSheet, Text, FlatList } from "react-native";
 import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import { Colors } from "./styles";
 
-const InvestmentBox = ({ balance, investments }) => {
+const BonosBox = ({ bonos, investments }) => {
   const renderItem = ({ item }) => {
-    return (
-      <TouchableOpacity>
-        <View style={styles.balanceBox}>
-          <View>
-            <Text style={styles.balanceTitle}>{item.name}</Text>
+    if (!investments.find((x) => x._id === item._id))
+    {
+      return (
+        <TouchableOpacity>
+          <View style={styles.balanceBox}>
+            <View>
+              <Text style={styles.balanceTitle}>{item.name}</Text>
+            </View>
+            <View>
+              <Text style={styles.balance}>${item.price[Object.keys(item.price).pop()]}</Text>
+              <Text style={styles.date}>Ultima actualizacion: {Object.keys(item.price).pop()}</Text>
+            </View>
           </View>
-          <View>
-            <Text style={styles.balance}>${item.qty * item.price}</Text>
-            <Text style={styles.qty}>{item.qty} un.</Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-    );
+          </TouchableOpacity>
+      );
+    }
+
   };
   return (
     <View style={styles.boxContainer}>
-      <View style={styles.titleBox}>
-        <Text style={styles.titleText}>CUENTAS (U$S)</Text>
-      </View>
-      <View style={styles.balanceBox}>
-        <View>
-          <Text style={styles.balanceTitle}>Caja</Text>
-        </View>
-        <View>
-          <Text style={styles.balance}>${balance}</Text>
-        </View>
-      </View>
-
       <View style={[styles.titleBox, {marginTop: 30}]}>
-        <Text style={styles.titleText}>INVERSIONES</Text>
+        <Text style={styles.titleText}>BONOS</Text>
       </View>
 
       <View>
         <FlatList
-          data={investments}
+          data={bonos}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -71,7 +63,6 @@ const styles = StyleSheet.create({
   balanceBox: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: Colors.grey,
     paddingVertical: 15
@@ -83,10 +74,14 @@ const styles = StyleSheet.create({
   },
   balance: {
     fontSize: 24,
-  },
-  qty: {
     textAlign: 'right'
+  },
+  date: {
+    textAlign: 'right',
+    fontSize: 12,
+    color: Colors.grey,
+    marginTop: 10
   }
 });
 
-export default InvestmentBox;
+export default BonosBox;
