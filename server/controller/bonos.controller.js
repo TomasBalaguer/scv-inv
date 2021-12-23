@@ -23,5 +23,9 @@ class BonoController {
         return await bonoService.updateBono(bono);
     }
 
+    async updatePrice(data) {
+        return await bonoService.updatePrice(data);
+    }
+
 }
 module.exports = new BonoController();

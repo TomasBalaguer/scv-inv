@@ -20,4 +20,8 @@ router.post('/', (req, res) => {
     bonosController.createBono(req.body).then(data => res.json(data));
 });
 
+router.post('/updateprice', (req, res) => {
+    bonosController.updatePrice(req.body).then(data => res.json(data))
+})
+
 module.exports = router

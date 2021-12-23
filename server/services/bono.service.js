@@ -40,6 +40,29 @@ class BonoRepository {
         return data;
     }
 
+    async updatePrice(req) {
+        
+        let data = {};
+        try {
+            var date = '"price.'+ new Date().toLocaleDateString()+'"';
+            console.log(date)
+            data = await Bono.findByIdAndUpdate(req.id , 
+                {
+                   
+                }, function (err, docs) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    console.log("Updated Docs : ", docs);
+                }
+            })
+        } catch(err) {
+            logger.error('Error::' + err);
+        }
+        return data;
+    }
+
 }
 
 module.exports = new BonoRepository();
