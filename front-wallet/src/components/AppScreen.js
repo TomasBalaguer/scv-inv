@@ -9,7 +9,7 @@ const { width } = Dimensions.get('window');
 const AppScreen = ({ children }) => {
   return (
     <View style={styles.container}>
-      <ScrollView>{children}</ScrollView>
+      {children}
     </View>
   );
 };
