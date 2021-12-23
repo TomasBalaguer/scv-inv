@@ -83,7 +83,7 @@ const Trade = ({ route }) => {
                     {bono && bono.price[Object.keys(bono.price).pop()].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                   </Text>
                   <Text style={styles.date}>
-                    Ultima actualizacion: {Object.keys(item.price).pop()}
+                    Ultima actualizacion: {bono && Object.keys(bono.price).pop()}
                   </Text>
                 </View>
               </View>

@@ -11,6 +11,7 @@ import {
 import { Colors } from "./src/components/styles";
 import Trade from "./src/screens/Trade";
 
+
 const Stack = createNativeStackNavigator();
 
 const CustomStatusBar = ({ backgroundColor, barStyle = "light" }) => {

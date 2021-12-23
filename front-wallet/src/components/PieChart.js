@@ -3,46 +3,13 @@ import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 import { Colors } from "./styles";
 
-const PieChartBox = ({ user }) => {
-  const [data, setData] = useState();
-  const [valorTotal, setValorTotal] = useState(0);
-  console.log(user);
-
-  const colos = ["red", "blue", "orange", "yellow"];
-  useEffect(() => {
-    formatData();
-  }, []);
-
-  const formatData = () => {
-    var total = 0;
-    var color = 0;
-    var array = [];
-    array.push({
-      name: "Caja",
-      amount: user.balance,
-      color: "green",
-    });
-
-    user.investments.forEach((element) => {
-      total += element.qty * element.price;
-      array.push({
-        name: element.name,
-        amount: element.qty * element.price,
-        color: colos[color],
-      });
-      color++;
-    });
-    total += user.balance;
-    setData(array);
-    setValorTotal(total);
-  };
-
+const PieChartBox = ({ data, valorTotal }) => {
   return (
     <View style={styles.boxContainer}>
       <View>
         <Text style={styles.title}>
           Valor Total de cartera: $
-          {user && valorTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+          {valorTotal && valorTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
         </Text>
       </View>
       {data && (
@@ -96,7 +63,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.7,
     shadowRadius: 2,
-    elevation: 2,
+    elevation: 1,
     marginTop: 30,
   },
   title: {

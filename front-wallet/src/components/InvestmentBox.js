@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 2, height: 2},
     shadowOpacity: 0.7,
     shadowRadius: 2,
-    elevation: 2
+    elevation: 1
   },
   titleBox: {
     height: 40,

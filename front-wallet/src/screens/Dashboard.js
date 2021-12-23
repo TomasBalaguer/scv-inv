@@ -21,7 +21,9 @@ const wait = (timeout) => {
 
 const Dashboard = ({navigation}) => {
   const [user, setUser] = useState();
-  const [bonos, setBonos] = useState()
+  const [bonos, setBonos] = useState();
+  const [chartData, setChartData] = useState();
+  const [valorTotal, setValorTotal] = useState(0)
 
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -36,6 +38,7 @@ const Dashboard = ({navigation}) => {
   const getUser = async () => {
     const { data: data, ok: response, status } = await dataApi.getUser();
     console.log(data);
+    pieData(data)
     setUser(data);
   };
 
@@ -45,9 +48,34 @@ const Dashboard = ({navigation}) => {
     setBonos(data);
   }
 
+  const pieData = (user) => {
+    const colos = ["red", "blue", "orange", "yellow"];
+    var total = 0;
+    var color = 0;
+    var array = [];
+    array.push({
+      name: "Caja",
+      amount: user.balance,
+      color: "green",
+    });
+
+    user.investments.forEach((element) => {
+      total += element.qty * element.price;
+      array.push({
+        name: element.name,
+        amount: element.qty * element.price,
+        color: colos[color],
+      });
+      color++;
+    });
+    total += user.balance;
+    setChartData(array);
+    setValorTotal(total);
+  }
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      getUser();
+      getUser()
       getBonos();
     });
     return unsubscribe;
@@ -59,7 +87,7 @@ const Dashboard = ({navigation}) => {
       <ScrollView
         contentContainerStyle={styles.scrollView}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={Colors.white} colors={Colors.white}/>
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={Colors.white}/>
         }
       >
         <View style={styles.container}>
@@ -85,7 +113,8 @@ const Dashboard = ({navigation}) => {
             {
               user && 
               <PieChart 
-              user={user}
+              data={chartData}
+              valorTotal={valorTotal}
               />   
             }
 
