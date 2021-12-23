@@ -29,3 +29,5 @@
 ### Correr aplicación
 
 `expo start`
+
+Correr la aplicación en emulador o descargarse la app Expo Go y correrla desde ahi
