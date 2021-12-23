@@ -82,10 +82,13 @@ const Dashboard = ({navigation}) => {
             />
           )}  
 
+            {
+              user && 
+              <PieChart 
+              user={user}
+              />   
+            }
 
-          <PieChart 
-          user={user}
-          />   
 
 
         </View>

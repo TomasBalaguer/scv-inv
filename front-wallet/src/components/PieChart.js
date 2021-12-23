@@ -8,11 +8,9 @@ const PieChartBox = ({ user }) => {
   const [valorTotal, setValorTotal] = useState(0);
   console.log(user);
 
-  const colos = [
-      'red','blue','orange', 'yellow'
-  ]
+  const colos = ["red", "blue", "orange", "yellow"];
   useEffect(() => {
-    if (user) formatData();
+    formatData();
   }, []);
 
   const formatData = () => {
@@ -32,17 +30,20 @@ const PieChartBox = ({ user }) => {
         amount: element.qty * element.price,
         color: colos[color],
       });
-      color ++
+      color++;
     });
     total += user.balance;
     setData(array);
-    setValorTotal(total)
+    setValorTotal(total);
   };
 
   return (
     <View style={styles.boxContainer}>
       <View>
-        <Text style={styles.title}>Valor Total de cartera: ${user && valorTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text>
+        <Text style={styles.title}>
+          Valor Total de cartera: $
+          {user && valorTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+        </Text>
       </View>
       {data && (
         <PieChart
@@ -64,13 +65,21 @@ const PieChartBox = ({ user }) => {
         />
       )}
       <View>
-          {data.map((e)=>{
-              return(
-                <View style={styles.refBox}>
-                <View style={[styles.refColor, {backgroundColor: e.color}]}></View>
-                <View><Text style={styles.refText}>{e.name}: ${e.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text></View>
+        {data &&
+          data.map((e) => {
+            return (
+              <View style={styles.refBox} key={e.name}>
+                <View
+                  style={[styles.refColor, { backgroundColor: e.color }]}
+                ></View>
+                <View>
+                  <Text style={styles.refText}>
+                    {e.name}: $
+                    {e.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  </Text>
+                </View>
               </View>
-              )
+            );
           })}
       </View>
     </View>
@@ -91,24 +100,24 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   title: {
-      textAlign: 'center',
-      marginTop: 15,
-      fontSize: 20,
-      fontWeight: 'bold'
+    textAlign: "center",
+    marginTop: 15,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   refBox: {
-      flexDirection: 'row',
-      marginBottom: 5
+    flexDirection: "row",
+    marginBottom: 5,
   },
   refColor: {
-      width: 20,
-      height: 20
+    width: 20,
+    height: 20,
   },
   refText: {
-      marginLeft: 10,
-      fontWeight: '500',
-      fontSize: 16
-  }
+    marginLeft: 10,
+    fontWeight: "500",
+    fontSize: 16,
+  },
 });
 
 export default PieChartBox;
