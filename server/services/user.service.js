@@ -3,7 +3,7 @@ const { getInvestments } = require('../controller/user.controller');
 const logger = require('../logger/api.logger');
 const { User } = require('../model/user.model');
 
-class BonoRepository {
+class UserService {
 
     constructor() {
         connect();
@@ -48,4 +48,4 @@ class BonoRepository {
 
 }
 
-module.exports = new BonoRepository();
+module.exports = new UserService();

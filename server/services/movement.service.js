@@ -1,6 +1,7 @@
 const { connect, disconnect } = require('../config/db.config');
 const { Movement } = require('../model/movement.model');
 const logger = require('../logger/api.logger');
+const { User } = require('../model/user.model');
 
 class MovementService {
 
@@ -20,8 +21,26 @@ class MovementService {
 
     async createMovement(movement) {
         let data = {};
+        var variation;
+        if(movement.action == '+')
+        {
+            variation = '-' + movement.totalPrice;
+
+        }else{
+            variation = '+' + movement.totalPrice;
+
+        }
         try {
             data = await Movement.create(movement);
+            await User.findByIdAndUpdate(movement.user, {
+                $inc: {balance: variation}, function (err, docs) {
+                    if (err){
+                        console.log(err)
+                    }
+                    else{
+                        console.log("Updated Docs : ", docs);
+                    }
+                }})
         } catch(err) {
             logger.error('Error::' + err);
         }

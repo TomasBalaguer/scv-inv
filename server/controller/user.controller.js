@@ -53,5 +53,7 @@ class UserController {
     await userService.updateUser(user);
     return await userService.getUser(user._id);
   }
+
+
 }
 module.exports = new UserController();
